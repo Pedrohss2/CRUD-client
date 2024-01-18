@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Service
 public class ClientService {
@@ -35,15 +37,39 @@ public class ClientService {
     public ClientDTO insert(ClientDTO clientDTO) {
         Client client = new Client();
 
+        copyToDto(clientDTO, client);
+
+        client = clientRepository.save(client);
+
+        return new ClientDTO(client);
+    }
+
+
+    public ClientDTO update(Long id,  ClientDTO clientDTO) {
+        Client client = clientRepository.getReferenceById(id);
+        copyToDto(clientDTO,client);
+        client = clientRepository.save(client);
+
+        return new ClientDTO(client);
+    }
+
+    public void delete(Long id) {
+        if(!clientRepository.existsById(id)) {
+            throw  new ResoruceNotFound("Resource not fount");
+        }
+
+        clientRepository.deleteById(id);
+    }
+
+
+    public void copyToDto(ClientDTO clientDTO, Client client) {
+
         client.setName(clientDTO.getName());
         client.setCpf(clientDTO.getCpf());
         client.setIncome(clientDTO.getIncome());
         client.setBirthDate(clientDTO.getBirthDate());
         client.setChildren(clientDTO.getChildren());
 
-        client = clientRepository.save(client);
-
-        return new ClientDTO(client);
     }
 
 

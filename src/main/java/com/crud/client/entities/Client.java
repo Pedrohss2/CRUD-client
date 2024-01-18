@@ -1,5 +1,6 @@
 package com.crud.client.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ public class Client {
     @Column(unique = true)
     private String cpf;
     private double income;
+
     private LocalDate birthDate;
     private Integer children;
 
