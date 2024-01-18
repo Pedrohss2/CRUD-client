@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Service
 public class ClientService {
@@ -55,7 +53,7 @@ public class ClientService {
 
     public void delete(Long id) {
         if(!clientRepository.existsById(id)) {
-            throw  new ResoruceNotFound("Resource not fount");
+            throw  new ResoruceNotFound("Recurso não encontrado");
         }
 
         clientRepository.deleteById(id);
