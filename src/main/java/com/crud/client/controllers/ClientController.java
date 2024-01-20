@@ -1,8 +1,8 @@
 package com.crud.client.controllers;
 
 import com.crud.client.dto.ClientDTO;
-import com.crud.client.entities.Client;
 import com.crud.client.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +15,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientController {
+
     @Autowired
     private ClientService clientService;
 
@@ -43,8 +44,9 @@ public class ClientController {
     }
 
 
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id,@RequestBody @Valid ClientDTO clientDTO) {
         clientDTO = clientService.update(id, clientDTO);
         return ResponseEntity.ok(clientDTO);
     }
@@ -54,6 +56,4 @@ public class ClientController {
         clientService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

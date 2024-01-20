@@ -5,8 +5,10 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+
 
 public class ClientDTO {
     private Long id;
@@ -17,7 +19,6 @@ public class ClientDTO {
     private double income;
     @PastOrPresent(message = "Data não pode ser futura")
     private LocalDate birthDate;
-
     @Positive(message = "Numero de fihlos precisa ser positivo")
     private Integer children;
 
